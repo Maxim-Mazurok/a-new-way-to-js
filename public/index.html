@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            padding: 0;
+            line-height: 1;
+            margin: auto;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, 'Open Sans', Arial, sans-serif;
+            color: #000;
+            background: #fff;
+        }
+
+        section {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            padding: 1em;
+            box-sizing: border-box;
+        }
+
+        .image {
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 12vh;
+        }
+
+        h2 {
+            font-size: 6vh;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            align-content: space-between;
+            width: 100%;
+        }
+
+        .col {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+      const NEXT = true;
+      const PREV = false;
+
+      handleClickNavigation();
+      handleKeyNavigation();
+
+      function handleKeyNavigation() {
+        document.onkeydown = function(event) {
+          if (['ArrowRight', 'ArrowLeft'].indexOf(event.key) !== -1) {
+            event.preventDefault();
+            if (event.key === 'ArrowRight') {
+              navigate(NEXT);
+            } else if (event.key === 'ArrowLeft') {
+              navigate(PREV);
+            } else {
+              console.warn('Unknown key pressed');
+            }
+          }
+        };
+      }
+
+      function navigate(direction) {
+        if (!window.location.hash) {
+          window.location.hash = '1';
+        } else {
+          let hash = (parseInt(window.location.hash.replace(/[^\d]/g, '')) + (direction === NEXT ? 1 : -1)).toString();
+          let target = document.getElementById(hash);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+            });
+            history.pushState(null, null, `#${hash}`);
+          }
+        }
+      }
+
+      function handleClickNavigation() {
+        const viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+        document.ontouchstart = document.onclick = function(event) {
+          event.preventDefault();
+          if ((event.clientX || event.touches[0].clientX) > viewportWidth / 2) {
+            navigate(NEXT);
+          } else {
+            navigate(PREV);
+          }
+        };
+      }
+    </script>
+</head>
+<body>
+<section>
+    <div class="image"
+         style="max-height: 269px; background-image:url(res/deno.png);">
+
+    </div>
+    <h1 style="margin-bottom: 10%;">A new way to JavaScript</h1>
+    <div class="row" style="height: 30vh;">
+        <div class="col">
+            <h2 style="margin-bottom: 3vh;">TypeScript</h2>
+            <div class="image"
+                 style="margin-top: 0; max-height: 150px; background-image:url(res/ts.png);"></div>
+        </div>
+        <div class="col">
+            <h2 style="margin-bottom: 3vh;">Angular</h2>
+            <div class="image"
+                 style="margin-top: 0; max-height: 150px; background-image:url(res/angular.png);"></div>
+        </div>
+        <div class="col">
+            <h2 style="margin-bottom: 3vh;">Deno</h2>
+            <div class="image"
+                 style="margin-top: 0; max-height: 150px; background-image:url(res/deno.gif);"></div>
+        </div>
+        <div class="col">
+            <h2 style="margin-bottom: 3vh;">Interview</h2>
+            <div class="image"
+                 style="margin-top: 0; max-height: 150px; background-image:url(res/google.png);"></div>
+        </div>
+    </div>
+</section>
+<section>
+    <h1>test</h1>
+</section>
+<script>
+  let sections = document.querySelectorAll('body > section');
+  let i = 1;
+  sections.forEach((section) => {
+    section.setAttribute('id', i.toString());
+    i++;
+  });
+  if (!window.location.hash) window.location.hash = '1';
+</script>
+<script>
+  document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
+      ':35729/livereload.js?snipver=1"></' + 'script>');
+</script>
+</body>
+</html>

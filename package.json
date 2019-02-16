@@ -1,0 +1,34 @@
+{
+  "name": "a-new-way-to",
+  "version": "1.0.0",
+  "description": "Presentation for my talk at https://dou.ua/calendar/25297/",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maxim-Mazurok/a-new-way-to-js.git"
+  },
+  "keywords": [
+    "talk",
+    "javascript",
+    "deno",
+    "angular",
+    "typescript",
+    "usa",
+    "interview"
+  ],
+  "author": "Maxim Mazurok <maxim@mazurok.com> (https://maxim.mazurok.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Maxim-Mazurok/a-new-way-to-js/issues"
+  },
+  "homepage": "https://github.com/Maxim-Mazurok/a-new-way-to-js#readme",
+  "devDependencies": {
+    "livereload": "^0.7.0",
+    "serve": "^10.1.2",
+    "serve-handler": "^5.0.8"
+  }
+}
