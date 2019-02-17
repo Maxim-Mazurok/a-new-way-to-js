@@ -4,7 +4,68 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,latin-ext"
+          rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'DejaVu Sans Mono';
+            src: url('res/fonts/DejaVuSansMono-webfont.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'DejaVu Sans Mono';
+            src: url('res/fonts/DejaVuSansMono-Bold-webfont.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+
+        .code-block {
+            font-family: 'DejaVu Sans Mono', monospace;
+            white-space: nowrap;
+            background-color: #000;
+            text-align: left;
+            font-size: 3.4vh;
+            color: #ffffff;
+            padding: 1em;
+            box-sizing: border-box;
+        }
+
+        .code-block > p {
+            line-height: 1.5;
+        }
+
+        .c0 {
+            color: #a9b7c6;
+        }
+
+        .c5 {
+            color: #cc7832;
+        }
+
+        .c3 {
+            color: #cc7832;
+            font-weight: 700
+        }
+
+        .c6 {
+            color: #ffc66d
+        }
+
+        .c10 {
+            color: #6a8759
+        }
+
+        .c8 {
+            color: #9876aa
+        }
+
+        .c1 {
+            color: #a9b7c6
+        }
+
         * {
             padding: 0;
             line-height: 1;
@@ -12,7 +73,7 @@
         }
 
         body {
-            font-family: 'Helvetica Neue', Helvetica, 'Open Sans', Arial, sans-serif;
+            font-family: 'Open Sans', Arial, 'Helvetica Neue', Helvetica, sans-serif;
             color: #000;
             background: #fff;
         }
@@ -23,7 +84,7 @@
             display: flex;
             flex-direction: column;
             text-align: center;
-            padding: 1em;
+            padding: 4vh;
             box-sizing: border-box;
         }
 
@@ -141,7 +202,35 @@
     </div>
 </section>
 <section>
-    <h1>test</h1>
+    <div class="image"
+         style="height: 14vh; max-width: 50vw; background-image:url(res/ts-logo.svg);"></div>
+    <h1 style="text-align: left; width: 90vw;font-size: 5vh;">A typed superset of JavaScript that compiles
+        to plain
+        JavaScript.</h1>
+    <h2 style="text-align: left; width: 90vw;font-size: 5vh; margin-top: 2vh; display: block;">Any browser. Any host.
+        Any
+        OS. Open source.</h2>
+    <div class="row" style="width: 90vw;">
+        <div class="col">
+            <div class="code-block">
+                <p><span class="c3">function </span><span class="c6">countLetters</span><span
+                        class="c1">(word: </span><span class="c3">string</span><span class="c1">): </span><span
+                        class="c3">number </span><span
+                        class="c0">{</span></p>
+                <p class="c2"><span class="c1">&nbsp; &nbsp;</span><span
+                        class="c3">return </span><span class="c1">word.</span><span class="c8">length</span><span
+                        class="c5">;</span></p>
+                <p class="c2"><span class="c0">}</span></p>
+                <br>
+                <p class="c2"><span class="c6">countLetters</span><span class="c1">(</span><span class="c10">&#39;Maxim&#39;</span><span
+                        class="c1">)</span><span class="c5">;</span></p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="image"
+                 style="margin-right: 0; background-position: bottom; width: 10vw; background-image:url(res/ts.png);"></div>
+        </div>
+    </div>
 </section>
 <script>
   let sections = document.querySelectorAll('body > section');
