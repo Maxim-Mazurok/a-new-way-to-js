@@ -154,14 +154,17 @@
         if (!window.location.hash) {
           window.location.hash = '1';
         } else {
-          let hash = (parseInt(window.location.hash.replace(/[^\d]/g, '')) + (direction === NEXT ? 1 : -1)).toString();
-          let target = document.getElementById(hash);
-          if (target) {
-            target.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start',
-            });
-            history.pushState(null, null, `#${hash}`);
+          if (direction !== NEXT || !checkAndType()) {
+            let hash = (parseInt(window.location.hash.replace(/[^\d]/g, '')) +
+                (direction === NEXT ? 1 : -1)).toString();
+            let target = document.getElementById(hash);
+            if (target) {
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+              });
+              history.pushState(null, null, `#${hash}`);
+            }
           }
         }
       }
@@ -303,22 +306,34 @@
         - Android/iOS-like security model, uses restrictive secure sandbox by default
     </h1>
 </section>
-<section style="width: 90vw; text-align: left;" class="ml-0">
-    <h2>Install</h2>
-    <h3 style="text-align: left; width: 100%; margin-bottom: 3vh;">Linux or Mac</h3>
-    <div class="code-block" style="margin-top: 0;">
-        curl -fL https://deno.land/x/install/install.sh | sh
-    </div>
-    <h4 style="margin-bottom: 3vh;">Windows PowerShell</h4>
-    <div class="code-block" style="font-size: 2vh; margin-top: 0;">
-        iex (iwr https://deno.land/x/install/install.ps1)
-    </div>
-
-    <h2>Run</h2>
-    <div class="code-block">
-        deno https://deno.land/welcome.js
+<section>
+    <h1 style="text-align: left; font-size: 6vh; position:relative; display: inline-block;">
+        Support TypeScript out of the box.
+        <span class="image"
+              style="top: 0; bottom: 0; right: -24vh; position: absolute; height: 20vh; width: 20vh; display: inline-block; background-image:url(res/images/box.png);"></span>
+    </h1>
+    <div class="code-block" style="width: 90vw; line-height: 2; height: 50vh; min-height: calc(3.4vh * 4 * 1.2 + 2em);">
+        [maxim@mazurok ~]$ <span class="to-type"
+                                 data-text="deno count_letters.ts__ENTER__`Compiling /count_letters.ts__BR__``Total letters count: 5__BR__``[maxim@mazurok ~]$ `"></span><span
+            id="cursor">█</span>
     </div>
 </section>
+<!--<section style="width: 90vw; text-align: left;" class="ml-0">-->
+<!--    <h2>Install</h2>-->
+<!--    <h3 style="text-align: left; width: 100%; margin-bottom: 3vh;">Linux or Mac</h3>-->
+<!--    <div class="code-block" style="margin-top: 0;">-->
+<!--        curl -fL https://deno.land/x/install/install.sh | sh-->
+<!--    </div>-->
+<!--    <h4 style="margin-bottom: 3vh;">Windows PowerShell</h4>-->
+<!--    <div class="code-block" style="font-size: 2vh; margin-top: 0;">-->
+<!--        iex (iwr https://deno.land/x/install/install.ps1)-->
+<!--    </div>-->
+
+<!--    <h2>Run</h2>-->
+<!--    <div class="code-block">-->
+<!--        deno https://deno.land/welcome.js-->
+<!--    </div>-->
+<!--</section>-->
 <script>
   let sections = document.querySelectorAll('body > section');
   let i = 1;
@@ -331,6 +346,96 @@
 <script>
   document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] +
       ':35729/livereload.js?snipver=1"></' + 'script>');
+</script>
+<script>
+  function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  }
+</script>
+<script>
+  let cursorInterval;
+
+  function getCursor() {
+    return document.getElementById('cursor');
+  }
+
+  function idleCursor() {
+    cursorInterval = setInterval(() => {
+      const cursor = getCursor();
+      cursor.style.color = cursor.style.color === 'rgb(0, 0, 0)' ? '#fff' : '#000';
+    }, 500);
+  }
+
+  function activeCursor() {
+    clearInterval(cursorInterval);
+    const cursor = getCursor();
+    cursor.style.color = '#fff';
+  }
+
+  function typeReset(element) {
+    console.log('reset');
+    element.innerText = '';
+    element.classList.add('to-type');
+  }
+
+  function type(element, index) {
+    activeCursor();
+    const text = element.dataset.text.replace(/__ENTER__/g, '\n').replace(/__BR__/g, '\r');
+    if (index <= text.length - 1) {
+      setTimeout(() => {
+        let textToType = text[index],
+            i = 0;
+        if (text[index] === '\n') textToType = `  ⏎${text[index]}`;//[maxim@mazurok ~]$ `;
+        if (text[index] === '\r') textToType = '\n';
+        else if (text[index] === '`') {
+          let x = null;
+          while (x !== '`') {
+            i++;
+            x = text[index + i];
+            textToType += x;
+          }
+          textToType = textToType.replace(/`/g, '');
+        }
+        if (textToType.length > 1) {
+          setTimeout(() => {
+            element.innerText += textToType;
+            type(element, index + i + 1);
+          }, 1000);
+        } else {
+          element.innerText += textToType;
+          type(element, index + i + 1);
+        }
+        // }, Math.max(100, Math.random() * 500));
+      }, Math.random() * 100);
+    } else {
+      idleCursor();
+    }
+  }
+
+  function checkAndType() {
+    let haveElementsToType = false;
+    document.querySelectorAll('[data-text]').forEach((element) => {
+      if (isElementInViewport(element)) {
+        if (element.classList.contains('to-type')) {
+          haveElementsToType = true;
+          element.classList.remove('to-type');
+          type(element, 0);
+        }
+      } else {
+        typeReset(element);
+      }
+    });
+    return haveElementsToType;
+  }
+
+  idleCursor();
 </script>
 </body>
 </html>
