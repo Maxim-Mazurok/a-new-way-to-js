@@ -159,7 +159,7 @@
         if (!window.location.hash) {
           window.location.hash = '1';
         } else {
-          if (direction !== NEXT || !checkAndType()) {
+          if (direction !== NEXT || (!checkAndType() && !checkAndReveal())) {
             let hash = (parseInt(window.location.hash.replace(/[^\d]/g, '')) +
                 (direction === NEXT ? 1 : -1)).toString();
             let target = document.getElementById(hash);
@@ -338,13 +338,77 @@
         <p class="c1"><span class="c5 c7">const </span><span class="c0">doc = parser.</span><span class="c9">parseFromString</span><span
                 class="c0">(</span><br><span
                 class="c10">&nbsp;&nbsp;&nbsp;&nbsp;&quot;&lt;some complex=&#39;false&#39;&gt;XML&lt;/some&gt;&quot;</span><span
-                class="c5">, </span><br><span class="c10">&nbsp;&nbsp;&nbsp;&nbsp;&quot;application/xml&quot;</span><span class="c0">)</span><span
+                class="c5">, </span><br><span
+                class="c10">&nbsp;&nbsp;&nbsp;&nbsp;&quot;application/xml&quot;</span><span class="c0">)</span><span
                 class="c5">;</span></p>
         <p class="c1 c10"><span class="c6 c8"></span></p>
     </div>
     <h1 style="text-align: left; width: 90vw;font-size: 4.2vh;">
         not implemented in Deno, yet
     </h1>
+</section>
+<section>
+    <div class="image"
+         style="height: 10vh; width: 100%; display: inline-block; background-image:url(res/images/npm.svg);"></div>
+    <h1 style="text-align: left; width: 90vw;font-size: 4.2vh;">
+        - xml2js<span style="font-size: 3.6vh; margin-left: 4vw;">4,000,000+ weekly downloads</span>
+    </h1>
+    <h1 style="text-align: left; width: 90vw;font-size: 4.2vh;">
+        - xml-js<span style="font-size: 3.6vh; margin-left: 4vw;">50,000+ weekly downloads</span>
+    </h1>
+</section>
+<section>
+    <div class="image"
+         style="height: 30%; width: 100%; display: inline-block; background-image:url(res/images/sax.png);"></div>
+    <div class="row" style="height: 70%">
+        <div class="col">
+            <h1 style="text-align: left; width: 50vw;font-size: 4.2vh;">
+                - 10,000,000+ weekly downloads
+            </h1>
+            <h1 style="text-align: left; width: 50vw;font-size: 4.2vh;">
+                - event driven
+            </h1>
+            <h1 style="text-align: left; width: 50vw;font-size: 4.2vh;">
+                - low memory usage
+            </h1>
+            <h1 style="text-align: left; width: 50vw;font-size: 4.2vh;">
+                - standard for XML parsing in Java
+            </h1>
+        </div>
+        <div class="col">
+            <div class="image" data-reveal="true"
+                 style="opacity:0.01; height: 100%; width: 100%; max-height: 369px; max-width: 720px; background-image:url(res/images/happy-saul.jpg);"></div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="row" style="height: 70%">
+        <div class="col">
+            <h1 style="text-align: left; width: 60vw;font-size: 6.2vh;">
+                SAX-js
+            </h1>
+            <h1 style="text-align: left; width: 60vw;font-size: 4.2vh;">
+                - uses <span
+                    style="font-family: monospace; margin-left: 1vw; margin-right: 1vw; background-color: #eee;">require()</span>
+            </h1>
+            <h1 style="text-align: left; width: 60vw;font-size: 4.2vh;">
+                - can't <span
+                    style="font-family: monospace; margin-left: 1vw; margin-right: 1vw; background-color: #eee;">import {} from ""</span>
+                without a hassle
+            </h1>
+            <h1 style="text-align: left; width: 60vw;font-size: 4.2vh;">
+                - written in JavaScript, not in TypeScript
+            </h1>
+        </div>
+        <div class="col">
+            <div class="image" data-reveal="true"
+                 style="opacity:0.01; height: 100%; width: 100%; max-height: 431px; max-width: 646px; background-image:url(res/images/sad-saul.jpg);"></div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="image"
+         style="height: 100%; width: 100%; max-height: 406px; max-width: 497px; display: inline-block; background-image:url(res/images/fork.jpg);"></div>
 </section>
 <!--<section style="width: 90vw; text-align: left;" class="ml-0">-->
 <!--    <h2>Install</h2>-->
@@ -461,6 +525,19 @@
       }
     });
     return haveElementsToType;
+  }
+
+  function checkAndReveal() {
+    let haveElementsToReveal = false;
+    document.querySelectorAll('[data-reveal=true]').forEach((element) => {
+      console.log(isElementInViewport(element));
+      if (isElementInViewport(element)) {
+        element.style.opacity = '1';
+        element.dataset.reveal = 'false';
+        haveElementsToReveal = true;
+      }
+    });
+    return haveElementsToReveal;
   }
 
   idleCursor();
