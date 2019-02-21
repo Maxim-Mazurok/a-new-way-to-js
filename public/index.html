@@ -6,6 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,latin-ext"
           rel="stylesheet">
+    <style about="code block styles">
+        .c0 {
+            color: #a9b7c6;
+        }
+
+        .c5 {
+            color: #cc7832;
+        }
+
+        .c3 {
+            color: #cc7832;
+            font-weight: 700
+        }
+
+        .c6 {
+            color: #ffc66d
+        }
+
+        .c10 {
+            color: #6a8759
+        }
+
+        .c8 {
+            color: #9876aa
+        }
+
+        .c1 {
+            color: #a9b7c6
+        }
+
+        .c9 {
+            color: #ffc66d
+        }
+    </style>
     <style>
         @font-face {
             font-family: 'DejaVu Sans Mono';
@@ -35,35 +69,6 @@
 
         .code-block > p {
             line-height: 1.5;
-        }
-
-        .c0 {
-            color: #a9b7c6;
-        }
-
-        .c5 {
-            color: #cc7832;
-        }
-
-        .c3 {
-            color: #cc7832;
-            font-weight: 700
-        }
-
-        .c6 {
-            color: #ffc66d
-        }
-
-        .c10 {
-            color: #6a8759
-        }
-
-        .c8 {
-            color: #9876aa
-        }
-
-        .c1 {
-            color: #a9b7c6
         }
 
         * {
@@ -317,6 +322,29 @@
                                  data-text="deno count_letters.ts__ENTER__`Compiling /count_letters.ts__BR__``Total letters count: 5__BR__``[maxim@mazurok ~]$ `"></span><span
             id="cursor">█</span>
     </div>
+</section>
+<section>
+    <h1 style="text-align: left; font-size: 6vh; position:relative; display: inline-block;">
+        Parse XML
+        <span class="image"
+              style="top: 0; bottom: 0; right: -12vh; position: absolute; height: 10vh; width: 10vh; display: inline-block; background-image:url(res/images/xml.svg);"></span>
+    </h1>
+    <h1 style="text-align: left; width: 90vw;font-size: 4.2vh;">
+        DOMParser
+    </h1>
+    <div class="code-block" style="width: 90vw;">
+        <p class="c1"><span class="c5 c7">const </span><span class="c0">parser = </span><span
+                class="c5 c7">new </span><span class="c0">DOMParser()</span><span class="c5 c6">;</span></p>
+        <p class="c1"><span class="c5 c7">const </span><span class="c0">doc = parser.</span><span class="c9">parseFromString</span><span
+                class="c0">(</span><br><span
+                class="c10">&nbsp;&nbsp;&nbsp;&nbsp;&quot;&lt;some complex=&#39;false&#39;&gt;XML&lt;/some&gt;&quot;</span><span
+                class="c5">, </span><br><span class="c10">&nbsp;&nbsp;&nbsp;&nbsp;&quot;application/xml&quot;</span><span class="c0">)</span><span
+                class="c5">;</span></p>
+        <p class="c1 c10"><span class="c6 c8"></span></p>
+    </div>
+    <h1 style="text-align: left; width: 90vw;font-size: 4.2vh;">
+        not implemented in Deno, yet
+    </h1>
 </section>
 <!--<section style="width: 90vw; text-align: left;" class="ml-0">-->
 <!--    <h2>Install</h2>-->
